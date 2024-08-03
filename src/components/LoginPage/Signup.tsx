@@ -30,7 +30,14 @@ const Signup: FC<SignupProps> = ({}) => {
     data,
     isPending,
     mutate: server_postSignup,
-  } = useMutation({ mutationFn: postSignUp });
+  } = useMutation({
+    mutationFn: postSignUp,
+    onSuccess: (data) => {
+      if (data.error) {
+        alert(data.error);
+      }
+    },
+  });
 
   const onSubmit: SubmitHandler<SignupForm> = (form) => {
     const { username, password } = form;

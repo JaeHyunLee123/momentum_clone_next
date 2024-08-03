@@ -2,6 +2,7 @@
 
 import { db } from "@/lib/db";
 import { hashing } from "@/lib/utils";
+import { Prisma } from "@prisma/client";
 
 export const postSignUp = async ({
   username,
@@ -9,20 +10,35 @@ export const postSignUp = async ({
 }: {
   username: string;
   password: string;
-}) => {
-  const hashedPassword = await hashing(password);
-
-  await db.user.create({
-    data: {
-      userName: username,
-      password: hashedPassword,
-    },
-  });
-
+}): Promise<{ status: number; error?: string }> => {
   try {
+    if (username.length > 20) {
+      return { status: 400 };
+    }
+
+    if (password.length < 11) {
+      return { status: 400 };
+    }
+
+    const hashedPassword = await hashing(password);
+
+    try {
+      await db.user.create({
+        data: {
+          userName: username,
+          password: hashedPassword,
+        },
+      });
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === "P2002") {
+          return { status: 400, error: "Username already exist" };
+        }
+      }
+    }
+
     return { status: 200 };
   } catch (error) {
-    console.error("hi");
-    return { status: 500 };
+    return { status: 500, error: "Unknown server error" };
   }
 };
