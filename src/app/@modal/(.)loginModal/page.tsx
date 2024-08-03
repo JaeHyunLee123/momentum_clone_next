@@ -1,4 +1,4 @@
-import { Modal } from "./modal";
+import { Modal } from "../modal";
 import LoginPage from "@/components/LoginPage/LoginPage";
 
 const login = "login";
