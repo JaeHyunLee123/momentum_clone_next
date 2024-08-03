@@ -8,7 +8,6 @@ const Header: FC<HeaderProps> = ({}) => {
     <header className="flex space-x-7">
       <Link href="/">home</Link>
       <Link href="/login">log in</Link>
-      <Link href="/signup">sign up</Link>
     </header>
   );
 };
