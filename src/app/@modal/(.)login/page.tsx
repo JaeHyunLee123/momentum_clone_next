@@ -1,3 +1,4 @@
+import { Modal } from "./modal";
 import LoginPage from "@/components/LoginPage/LoginPage";
 
 const login = "login";
@@ -8,5 +9,9 @@ interface LoginPageProps {
 }
 
 export default function Page({ loginOrSignup = login }: LoginPageProps) {
-  return <LoginPage loginOrSignup={loginOrSignup} />;
+  return (
+    <Modal>
+      <LoginPage loginOrSignup={loginOrSignup} />
+    </Modal>
+  );
 }

@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { Card, CardContent, CardHeader } from "./ui/card";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
+import { Card, CardContent, CardHeader } from "../ui/Card";
+import { Label } from "../ui/Label";
+import { Input } from "../ui/Input";
 
 interface LoginProps {}
 
